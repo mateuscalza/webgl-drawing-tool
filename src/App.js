@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   position: fixed;
   width: 100vw;
   height: 100vh;
-  background-color: #fff;
+  background-color: #000;
   perspective: 100px;
 `
 

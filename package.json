@@ -10,7 +10,8 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
     "react-use": "^15.3.4",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.2.0",
+    "three": "^0.121.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -17,7 +17,7 @@ const Wrapper = styled.main`
   }
 `
 
-export default function Board() {
+export default function Board({ layers }) {
   const boardRef = useRef()
   const [wrapperRef, { width, height }] = useMeasure()
   const camera = useMemo(() => {
@@ -31,13 +31,18 @@ export default function Board() {
   const scene = useMemo(() => {
     const currentScene = new THREE.Scene()
 
-    const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
-    const material = new THREE.MeshNormalMaterial()
+    currentScene.add(
+      ...layers.map(layer => {
+        const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
+        const material = new THREE.MeshNormalMaterial()
+        const mesh = new THREE.Mesh(geometry, material)
 
-    const mesh = new THREE.Mesh(geometry, material)
-    currentScene.add(mesh)
+        return mesh
+      }),
+    )
+
     return currentScene
-  }, [])
+  }, [layers])
   const renderer = useMemo(() => new THREE.WebGLRenderer({ antialias: true }), [])
 
   // Responsive renderer

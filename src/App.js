@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Panel from './components/panel/panel'
 import Board from './components/board/board'
@@ -13,9 +13,18 @@ const Wrapper = styled.div`
 `
 
 function App() {
+  const [layers, setLayers] = useState([
+    {
+      type: 'rect',
+      width: 0.1,
+      height: 0.1,
+      color: '#badc58',
+    },
+  ])
+
   return (
     <Wrapper>
-      <Board />
+      <Board layers={layers} />
       <Panel />
     </Wrapper>
   )

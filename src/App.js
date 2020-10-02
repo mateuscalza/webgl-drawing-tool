@@ -30,7 +30,12 @@ function App() {
       type: 'triangle',
       width: 0.3,
       height: 0.3,
-      color: 'orange',
+      color: '#f0932b',
+    },
+    {
+      type: 'circle',
+      radius: 0.03,
+      color: '#eb4d4b',
     },
   ])
 

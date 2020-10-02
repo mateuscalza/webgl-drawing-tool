@@ -35,5 +35,11 @@ export default function layerToObject(layer) {
   const mesh = new THREE.Mesh(geometry, material)
   mesh.position.x = layer.x
   mesh.position.y = layer.y
+  mesh.rotation.z = layer.rotation
+
+  // if (layer.angle) {
+  //   mesh.setRotationFromEuler(layer.angle)
+  // }
+
   return mesh
 }

@@ -22,6 +22,7 @@ function App() {
       color: '#686de0',
       x: 0,
       y: 0,
+      rotation: 0,
     },
     {
       type: 'rect',
@@ -30,6 +31,7 @@ function App() {
       color: '#badc58',
       x: 0,
       y: 0,
+      rotation: 0,
     },
     {
       type: 'triangle',
@@ -38,6 +40,7 @@ function App() {
       color: '#f0932b',
       x: 0,
       y: 0,
+      rotation: 0,
     },
     {
       type: 'circle',
@@ -45,10 +48,11 @@ function App() {
       color: '#eb4d4b',
       x: 0,
       y: 0,
+      rotation: 0,
     },
   ])
 
-  const handleTranslate = (x = 0, y = 0) => {
+  const handleTranslate = (x = 0, y = 0) =>
     setLayers(oldLayers => {
       const newLayers = oldLayers.slice(0)
 
@@ -61,8 +65,19 @@ function App() {
 
       return newLayers
     })
-  }
-  const handleRotate = (angle = 0) => {}
+
+  const handleRotate = (rotation = 0) =>
+    setLayers(oldLayers => {
+      const newLayers = oldLayers.slice(0)
+
+      const currentLayer = newLayers[activeLayerIndex]
+      newLayers[activeLayerIndex] = {
+        ...currentLayer,
+        rotation: currentLayer.rotation + rotation,
+      }
+
+      return newLayers
+    })
 
   return (
     <Wrapper>

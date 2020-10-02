@@ -28,15 +28,15 @@ export default function Transform({
   return (
     <Wrapper>
       <section>
-        <button onClick={() => onRotate(-rotateFactor)}>
+        <button onClick={() => onRotate(rotateFactor)}>
           <img alt='Rotate left' src={rotateLeft} />
         </button>
 
-        <button onClick={() => onTranslate(0, -translateFactor)}>
+        <button onClick={() => onTranslate(0, translateFactor)}>
           <img alt='Translate up' src={arrowUp} />
         </button>
 
-        <button onClick={() => onRotate(rotateFactor)}>
+        <button onClick={() => onRotate(-rotateFactor)}>
           <img alt='Rotate right' src={rotateRight} />
         </button>
       </section>
@@ -45,7 +45,7 @@ export default function Transform({
         <button onClick={() => onTranslate(-translateFactor, 0)}>
           <img alt='Translate left' src={arrowLeft} />
         </button>
-        <button onClick={() => onTranslate(0, translateFactor)}>
+        <button onClick={() => onTranslate(0, -translateFactor)}>
           <img alt='Translate down' src={arrowDown} />
         </button>
         <button onClick={() => onTranslate(translateFactor, 0)}>

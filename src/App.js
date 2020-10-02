@@ -16,6 +16,12 @@ function App() {
   const [layers, setLayers] = useState([
     {
       type: 'rect',
+      width: 0.2,
+      height: 0.2,
+      color: '#686de0',
+    },
+    {
+      type: 'rect',
       width: 0.1,
       height: 0.1,
       color: '#badc58',

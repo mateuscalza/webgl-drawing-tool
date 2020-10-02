@@ -31,15 +31,24 @@ export default function Board({ layers }) {
   const scene = useMemo(() => {
     const currentScene = new THREE.Scene()
 
-    currentScene.add(
-      ...layers.map(layer => {
-        const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
-        const material = new THREE.MeshNormalMaterial()
-        const mesh = new THREE.Mesh(geometry, material)
+    const objects = layers.map((layer, index) => {
+      switch (layer.type) {
+        case 'rect':
+          const mesh = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(layer.width, layer.height),
+            new THREE.MeshBasicMaterial({ color: layer.color, transparent: true, opacity: 0.9 }),
+          )
+          // mesh.position.z = -(layers.length - index)
+          return mesh
+        default:
+          throw new Error('Unknown layer type')
+      }
+      // const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
+      // const material = new THREE.MeshNormalMaterial()
+      // const mesh = new THREE.Mesh(geometry, material)
+    })
 
-        return mesh
-      }),
-    )
+    currentScene.add(...objects)
 
     return currentScene
   }, [layers])

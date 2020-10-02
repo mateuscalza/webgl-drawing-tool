@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 import { useMeasure } from 'react-use'
 import * as THREE from 'three'
@@ -9,7 +9,7 @@ const Wrapper = styled.main`
   flex: 1;
   height: 100%;
 
-  canvas {
+  .board {
     position: absolute;
     top: 0;
     left: 0;
@@ -20,29 +20,50 @@ const Wrapper = styled.main`
 export default function Board() {
   const boardRef = useRef()
   const [wrapperRef, { width, height }] = useMeasure()
-
-  useEffect(() => {
-    if (!width || !height || !boardRef.current) {
-      return
+  const camera = useMemo(() => {
+    if (!width || !height) {
+      return null
     }
-
-    const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10)
-    camera.position.z = 1
-
-    const scene = new THREE.Scene()
+    const currentCamera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10)
+    currentCamera.position.z = 1
+    return currentCamera
+  }, [width, height])
+  const scene = useMemo(() => {
+    const currentScene = new THREE.Scene()
 
     const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
     const material = new THREE.MeshNormalMaterial()
 
     const mesh = new THREE.Mesh(geometry, material)
-    scene.add(mesh)
+    currentScene.add(mesh)
+    return currentScene
+  }, [])
+  const renderer = useMemo(() => {
+    if (!width || !height) {
+      return null
+    }
+    const currentRenderer = new THREE.WebGLRenderer({ antialias: true })
+    currentRenderer.setSize(width, height)
+    return currentRenderer
+  }, [width, height])
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true })
-    renderer.setSize(width, height)
+  // Attach to DOM
+  useEffect(() => {
+    if (!boardRef.current || !renderer) {
+      return
+    }
+
+    boardRef.current.innerHTML = ''
     boardRef.current.appendChild(renderer.domElement)
-    console.log({ scene, camera })
+  }, [boardRef, renderer])
+
+  // Render
+  useEffect(() => {
+    if (!camera || !scene || !renderer) {
+      return
+    }
     renderer.render(scene, camera)
-  }, [boardRef, width, height])
+  }, [renderer, camera, scene])
 
   return (
     <Wrapper ref={wrapperRef}>

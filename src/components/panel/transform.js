@@ -12,7 +12,6 @@ import zoomOut from '../../icons/zoomOut.svg'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
 
   section {
     flex-direction: row;

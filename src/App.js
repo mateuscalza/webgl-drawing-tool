@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useKey } from 'react-use'
 import Panel from './components/panel/panel'
 import Board from './components/board/board'
 
@@ -9,7 +10,7 @@ const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: #000;
-  perspective: 100px;
+  perspective: 90px;
 `
 
 function App() {
@@ -78,6 +79,15 @@ function App() {
 
       return newLayers
     })
+
+  const keyTranslateFactor = 0.005
+  const keyRotateFactor = 0.005
+  useKey('ArrowUp', () => handleTranslate(0, keyTranslateFactor))
+  useKey('ArrowDown', () => handleTranslate(0, -keyTranslateFactor))
+  useKey('ArrowLeft', () => handleTranslate(-keyTranslateFactor, 0))
+  useKey('ArrowRight', () => handleTranslate(keyTranslateFactor, 0))
+  useKey('f', () => handleRotate(keyRotateFactor))
+  useKey('g', () => handleRotate(-keyRotateFactor))
 
   return (
     <Wrapper>

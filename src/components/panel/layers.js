@@ -7,11 +7,13 @@ const Wrapper = styled.section`
   margin-bottom: 10px;
 
   .layer {
+    display: block;
     background-color: #555;
     color: #fff;
     width: 100%;
-    padding: 5px;
+    padding: 5px 5px 5px 10px;
     margin: 0 0 5px;
+    border-radius: 5px;
 
     span {
       margin-left: 5px;
@@ -34,15 +36,15 @@ export default function Layers({
         setList={newLayers => onChangeLayers(newLayers.reverse())}
       >
         {reverseLayers.map((item, index) => (
-          <div key={index} className='layer'>
+          <label key={index} className='layer'>
             <input
-              type='radio'
+              type='checkbox'
               name='active-layer'
               checked={layers.length - 1 - index === activeLayerIndex}
-              onClick={() => onChangeActiveLayerIndex(layers.length - 1 - index)}
+              onChange={() => onChangeActiveLayerIndex(layers.length - 1 - index)}
             />
             <span>{item.type}</span>
-          </div>
+          </label>
         ))}
       </ReactSortable>
     </Wrapper>

@@ -86,26 +86,38 @@ function App() {
   useKey(
     'ArrowUp',
     prevented(() => handleTranslate(0, keyTranslateFactor)),
+    {},
+    [activeLayerIndex],
   )
   useKey(
     'ArrowDown',
     prevented(() => handleTranslate(0, -keyTranslateFactor)),
+    {},
+    [activeLayerIndex],
   )
   useKey(
     'ArrowLeft',
     prevented(() => handleTranslate(-keyTranslateFactor, 0)),
+    {},
+    [activeLayerIndex],
   )
   useKey(
     'ArrowRight',
     prevented(() => handleTranslate(keyTranslateFactor, 0)),
+    {},
+    [activeLayerIndex],
   )
   useKey(
     'f',
     prevented(() => handleRotate(keyRotateFactor)),
+    {},
+    [activeLayerIndex],
   )
   useKey(
     'g',
     prevented(() => handleRotate(-keyRotateFactor)),
+    {},
+    [activeLayerIndex],
   )
 
   return (

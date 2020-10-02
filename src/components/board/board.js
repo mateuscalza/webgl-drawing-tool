@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 import { useMeasure } from 'react-use'
 import * as THREE from 'three'
+import layerToObject from '../../utils/layerToObject'
 
 const Wrapper = styled.main`
   position: relative;
@@ -24,30 +25,14 @@ export default function Board({ layers }) {
     if (!width || !height) {
       return null
     }
-    const currentCamera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10)
+    const currentCamera = new THREE.PerspectiveCamera(70, width / height, 0.01, 100)
     currentCamera.position.z = 1
     return currentCamera
   }, [width, height])
   const scene = useMemo(() => {
     const currentScene = new THREE.Scene()
 
-    const objects = layers.map((layer, index) => {
-      switch (layer.type) {
-        case 'rect':
-          const mesh = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry(layer.width, layer.height),
-            new THREE.MeshBasicMaterial({ color: layer.color, transparent: true, opacity: 0.9 }),
-          )
-          // mesh.position.z = -(layers.length - index)
-          return mesh
-        default:
-          throw new Error('Unknown layer type')
-      }
-      // const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
-      // const material = new THREE.MeshNormalMaterial()
-      // const mesh = new THREE.Mesh(geometry, material)
-    })
-
+    const objects = layers.map(layerToObject)
     currentScene.add(...objects)
 
     return currentScene

@@ -16,15 +16,21 @@ function App() {
   const [layers, setLayers] = useState([
     {
       type: 'rect',
-      width: 0.2,
-      height: 0.2,
+      width: 0.5,
+      height: 0.5,
       color: '#686de0',
     },
     {
       type: 'rect',
-      width: 0.1,
-      height: 0.1,
+      width: 0.4,
+      height: 0.4,
       color: '#badc58',
+    },
+    {
+      type: 'triangle',
+      width: 0.3,
+      height: 0.3,
+      color: 'orange',
     },
   ])
 

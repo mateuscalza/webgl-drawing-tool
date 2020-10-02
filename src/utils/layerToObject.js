@@ -31,5 +31,9 @@ export default function layerToObject(layer) {
     default:
       throw new Error('Unknown layer type')
   }
-  return new THREE.Mesh(geometry, material)
+
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.x = layer.x
+  mesh.position.y = layer.y
+  return mesh
 }

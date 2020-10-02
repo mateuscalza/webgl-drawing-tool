@@ -13,36 +13,61 @@ const Wrapper = styled.div`
 `
 
 function App() {
+  const [activeLayerIndex, setActiveLayerIndex] = useState(0)
   const [layers, setLayers] = useState([
     {
       type: 'rect',
       width: 0.5,
       height: 0.5,
       color: '#686de0',
+      x: 0,
+      y: 0,
     },
     {
       type: 'rect',
       width: 0.4,
       height: 0.4,
       color: '#badc58',
+      x: 0,
+      y: 0,
     },
     {
       type: 'triangle',
       width: 0.3,
       height: 0.3,
       color: '#f0932b',
+      x: 0,
+      y: 0,
     },
     {
       type: 'circle',
       radius: 0.03,
       color: '#eb4d4b',
+      x: 0,
+      y: 0,
     },
   ])
+
+  const handleTranslate = (x = 0, y = 0) => {
+    setLayers(oldLayers => {
+      const newLayers = oldLayers.slice(0)
+
+      const currentLayer = newLayers[activeLayerIndex]
+      newLayers[activeLayerIndex] = {
+        ...currentLayer,
+        x: currentLayer.x + x,
+        y: currentLayer.y + y,
+      }
+
+      return newLayers
+    })
+  }
+  const handleRotate = (angle = 0) => {}
 
   return (
     <Wrapper>
       <Board layers={layers} />
-      <Panel />
+      <Panel layers={layers} onTranslate={handleTranslate} onRotate={handleRotate} />
     </Wrapper>
   )
 }

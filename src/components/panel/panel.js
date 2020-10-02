@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Layers from './layers'
 import Transform from './transform'
 
 const Wrapper = styled.aside`
@@ -9,16 +10,29 @@ const Wrapper = styled.aside`
   height: 100%;
   background-color: #444;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
-  transform-style: preserve-3d;
-  transform: rotateY(-1deg);
+  /* transform-style: preserve-3d;
+  transform: rotateY(-1deg); */
   justify-content: space-between;
   align-items: center;
   padding: 30px;
 `
 
-export default function Panel({ layers, onTranslate, onRotate }) {
+export default function Panel({
+  layers,
+  onChangeLayers,
+  onTranslate,
+  onRotate,
+  activeLayerIndex,
+  onChangeActiveLayerIndex,
+}) {
   return (
     <Wrapper>
+      <Layers
+        layers={layers}
+        onChangeLayers={onChangeLayers}
+        activeLayerIndex={activeLayerIndex}
+        onChangeActiveLayerIndex={onChangeActiveLayerIndex}
+      />
       <Transform onTranslate={onTranslate} onRotate={onRotate} />
     </Wrapper>
   )

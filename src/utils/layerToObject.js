@@ -18,7 +18,7 @@ export default function layerToObject(layer) {
       const v2 = new THREE.Vector3(-layer.width / 2, -layer.height / 2, 0)
       const v3 = new THREE.Vector3(layer.width / 2, -layer.height / 2, 0)
       const triangle = new THREE.Triangle(v1, v2, v3)
-      const normal = triangle.normal()
+      const normal = triangle.getNormal(new THREE.Vector3(0, 0, 0))
       geometry.vertices.push(triangle.a)
       geometry.vertices.push(triangle.b)
       geometry.vertices.push(triangle.c)
@@ -26,7 +26,6 @@ export default function layerToObject(layer) {
       break
     case 'circle':
       geometry = new THREE.CircleGeometry(layer.radius, 38)
-      console.log(geometry)
       break
     default:
       throw new Error('Unknown layer type')

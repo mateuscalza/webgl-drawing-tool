@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useKey } from 'react-use'
 import Panel from './components/panel/panel'
 import Board from './components/board/board'
+import prevented from './utils/prevented'
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: #000;
-  perspective: 90px;
+  /* perspective: 90px; */
 `
 
 function App() {
@@ -82,17 +83,42 @@ function App() {
 
   const keyTranslateFactor = 0.005
   const keyRotateFactor = 0.005
-  useKey('ArrowUp', () => handleTranslate(0, keyTranslateFactor))
-  useKey('ArrowDown', () => handleTranslate(0, -keyTranslateFactor))
-  useKey('ArrowLeft', () => handleTranslate(-keyTranslateFactor, 0))
-  useKey('ArrowRight', () => handleTranslate(keyTranslateFactor, 0))
-  useKey('f', () => handleRotate(keyRotateFactor))
-  useKey('g', () => handleRotate(-keyRotateFactor))
+  useKey(
+    'ArrowUp',
+    prevented(() => handleTranslate(0, keyTranslateFactor)),
+  )
+  useKey(
+    'ArrowDown',
+    prevented(() => handleTranslate(0, -keyTranslateFactor)),
+  )
+  useKey(
+    'ArrowLeft',
+    prevented(() => handleTranslate(-keyTranslateFactor, 0)),
+  )
+  useKey(
+    'ArrowRight',
+    prevented(() => handleTranslate(keyTranslateFactor, 0)),
+  )
+  useKey(
+    'f',
+    prevented(() => handleRotate(keyRotateFactor)),
+  )
+  useKey(
+    'g',
+    prevented(() => handleRotate(-keyRotateFactor)),
+  )
 
   return (
     <Wrapper>
       <Board layers={layers} />
-      <Panel layers={layers} onTranslate={handleTranslate} onRotate={handleRotate} />
+      <Panel
+        layers={layers}
+        onChangeLayers={setLayers}
+        onTranslate={handleTranslate}
+        onRotate={handleRotate}
+        activeLayerIndex={activeLayerIndex}
+        onChangeActiveLayerIndex={setActiveLayerIndex}
+      />
     </Wrapper>
   )
 }

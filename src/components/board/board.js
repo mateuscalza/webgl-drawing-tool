@@ -38,14 +38,16 @@ export default function Board() {
     currentScene.add(mesh)
     return currentScene
   }, [])
-  const renderer = useMemo(() => {
-    if (!width || !height) {
-      return null
+  const renderer = useMemo(() => new THREE.WebGLRenderer({ antialias: true }), [])
+
+  // Responsive renderer
+  useEffect(() => {
+    if (!width || !height || !renderer) {
+      return
     }
-    const currentRenderer = new THREE.WebGLRenderer({ antialias: true })
-    currentRenderer.setSize(width, height)
-    return currentRenderer
-  }, [width, height])
+
+    renderer.setSize(width, height)
+  }, [renderer, width, height])
 
   // Attach to DOM
   useEffect(() => {

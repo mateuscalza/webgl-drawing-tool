@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Add from './add'
 import Layers from './layers'
 import Transform from './transform'
 
@@ -22,11 +23,13 @@ export default function Panel({
   onChangeLayers,
   onTranslate,
   onRotate,
+  onAdd,
   activeLayerIndex,
   onChangeActiveLayerIndex,
 }) {
   return (
     <Wrapper>
+      <Add onAdd={onAdd} />
       <Layers
         layers={layers}
         onChangeLayers={onChangeLayers}

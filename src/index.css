@@ -17,3 +17,13 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+button {
+  background-color: #333;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 6px;
+  border: none;
+  border-bottom: 4px outset rgba(0, 0, 0, 0.5);
+}

@@ -25,7 +25,7 @@ export default function layerToObject(layer) {
       geometry.faces.push(new THREE.Face3(0, 1, 2, normal))
       break
     case 'circle':
-      geometry = new THREE.CircleGeometry(layer.radius, 38)
+      geometry = new THREE.CircleGeometry(layer.radius / 2, 38)
       break
     default:
       throw new Error('Unknown layer type')

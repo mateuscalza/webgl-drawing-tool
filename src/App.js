@@ -4,6 +4,7 @@ import { useKey } from 'react-use'
 import Panel from './components/panel/panel'
 import Board from './components/board/board'
 import prevented from './utils/prevented'
+import generateLayer from './utils/generateLayer'
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,48 +12,12 @@ const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: #000;
-  /* perspective: 90px; */
+  perspective: 70px;
 `
 
 function App() {
   const [activeLayerIndex, setActiveLayerIndex] = useState(0)
-  const [layers, setLayers] = useState([
-    {
-      type: 'rect',
-      width: 0.5,
-      height: 0.5,
-      color: '#686de0',
-      x: 0,
-      y: 0,
-      rotation: 0,
-    },
-    {
-      type: 'rect',
-      width: 0.4,
-      height: 0.4,
-      color: '#badc58',
-      x: 0,
-      y: 0,
-      rotation: 0,
-    },
-    {
-      type: 'triangle',
-      width: 0.3,
-      height: 0.3,
-      color: '#f0932b',
-      x: 0,
-      y: 0,
-      rotation: 0,
-    },
-    {
-      type: 'circle',
-      radius: 0.03,
-      color: '#eb4d4b',
-      x: 0,
-      y: 0,
-      rotation: 0,
-    },
-  ])
+  const [layers, setLayers] = useState([])
 
   const handleTranslate = (x = 0, y = 0) =>
     setLayers(oldLayers => {
@@ -80,6 +45,11 @@ function App() {
 
       return newLayers
     })
+
+  const handleAdd = type => {
+    setLayers(oldLayers => [...oldLayers, generateLayer(type)])
+    console.log('type', type)
+  }
 
   const keyTranslateFactor = 0.005
   const keyRotateFactor = 0.005
@@ -126,6 +96,7 @@ function App() {
       <Panel
         layers={layers}
         onChangeLayers={setLayers}
+        onAdd={handleAdd}
         onTranslate={handleTranslate}
         onRotate={handleRotate}
         activeLayerIndex={activeLayerIndex}

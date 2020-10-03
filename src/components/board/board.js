@@ -32,8 +32,10 @@ export default function Board({ layers }) {
   const scene = useMemo(() => {
     const currentScene = new THREE.Scene()
 
-    const objects = layers.map(layerToObject)
-    currentScene.add(...objects)
+    if (layers.length) {
+      const objects = layers.map(layerToObject)
+      currentScene.add(...objects)
+    }
 
     return currentScene
   }, [layers])

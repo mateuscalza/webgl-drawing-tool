@@ -10,7 +10,6 @@
     }
   ],
   "public": true,
-  "regions": ["gru1", "sfo1"],
   "routes": [
     {
       "src": "/static/(.*)",

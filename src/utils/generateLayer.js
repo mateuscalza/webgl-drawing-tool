@@ -1,11 +1,17 @@
+import randomColor from 'randomcolor'
+
 export default function generateLayer(type) {
+  const color = randomColor({
+    luminosity: 'bright',
+  })
+
   switch (type) {
     case 'rect':
       return {
         type: 'rect',
         width: 0.3,
         height: 0.3,
-        color: '#686de0',
+        color,
         x: 0,
         y: 0,
         rotation: 0,
@@ -14,7 +20,7 @@ export default function generateLayer(type) {
       return {
         type: 'circle',
         radius: 0.3,
-        color: '#eb4d4b',
+        color,
         x: 0,
         y: 0,
         rotation: 0,
@@ -24,7 +30,7 @@ export default function generateLayer(type) {
         type: 'triangle',
         width: 0.3,
         height: 0.3,
-        color: '#f0932b',
+        color,
         x: 0,
         y: 0,
         rotation: 0,

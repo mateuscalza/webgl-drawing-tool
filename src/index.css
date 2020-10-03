@@ -27,3 +27,17 @@ button {
   border: none;
   border-bottom: 4px outset rgba(0, 0, 0, 0.5);
 }
+
+.flex-1 {
+  flex: 1;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+}

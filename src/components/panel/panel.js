@@ -24,6 +24,7 @@ export default function Panel({
   onTranslate,
   onRotate,
   onAdd,
+  onUpdate,
   activeLayerIndex,
   onChangeActiveLayerIndex,
 }) {
@@ -36,8 +37,14 @@ export default function Panel({
         activeLayerIndex={activeLayerIndex}
         onChangeActiveLayerIndex={onChangeActiveLayerIndex}
       />
-      {activeLayerIndex !== null ? (
-        <Transform onTranslate={onTranslate} onRotate={onRotate} />
+      {layers[activeLayerIndex] ? (
+        <Transform
+          layers={layers}
+          activeLayerIndex={activeLayerIndex}
+          onTranslate={onTranslate}
+          onRotate={onRotate}
+          onUpdate={onUpdate}
+        />
       ) : (
         <div />
       )}

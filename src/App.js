@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useKey } from 'react-use'
 import Panel from './components/panel/panel'
@@ -56,6 +56,24 @@ function App() {
       return newLayers
     })
 
+  const handleUpdate = patch =>
+    setLayers(oldLayers => {
+      const newLayers = oldLayers.slice(0)
+
+      const currentLayer = newLayers[activeLayerIndex]
+
+      if (!currentLayer) {
+        return oldLayers
+      }
+
+      newLayers[activeLayerIndex] = {
+        ...currentLayer,
+        ...patch,
+      }
+
+      return newLayers
+    })
+
   const handleAdd = type => {
     const newLayerIndex = layers.length
     setLayers(oldLayers => [...oldLayers, generateLayer(type)])
@@ -108,6 +126,7 @@ function App() {
         layers={layers}
         onChangeLayers={setLayers}
         onAdd={handleAdd}
+        onUpdate={handleUpdate}
         onTranslate={handleTranslate}
         onRotate={handleRotate}
         activeLayerIndex={activeLayerIndex}

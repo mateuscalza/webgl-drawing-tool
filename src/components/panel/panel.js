@@ -36,7 +36,11 @@ export default function Panel({
         activeLayerIndex={activeLayerIndex}
         onChangeActiveLayerIndex={onChangeActiveLayerIndex}
       />
-      <Transform onTranslate={onTranslate} onRotate={onRotate} />
+      {activeLayerIndex !== null ? (
+        <Transform onTranslate={onTranslate} onRotate={onRotate} />
+      ) : (
+        <div />
+      )}
     </Wrapper>
   )
 }

@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 `
 
 function App() {
-  const [activeLayerIndex, setActiveLayerIndex] = useState(0)
+  const [activeLayerIndex, setActiveLayerIndex] = useState(null)
   const [layers, setLayers] = useState([])
 
   const handleTranslate = (x = 0, y = 0) =>
@@ -24,6 +24,11 @@ function App() {
       const newLayers = oldLayers.slice(0)
 
       const currentLayer = newLayers[activeLayerIndex]
+
+      if (!currentLayer) {
+        return oldLayers
+      }
+
       newLayers[activeLayerIndex] = {
         ...currentLayer,
         x: currentLayer.x + x,
@@ -38,6 +43,11 @@ function App() {
       const newLayers = oldLayers.slice(0)
 
       const currentLayer = newLayers[activeLayerIndex]
+
+      if (!currentLayer) {
+        return oldLayers
+      }
+
       newLayers[activeLayerIndex] = {
         ...currentLayer,
         rotation: currentLayer.rotation + rotation,
@@ -47,8 +57,9 @@ function App() {
     })
 
   const handleAdd = type => {
+    const newLayerIndex = layers.length
     setLayers(oldLayers => [...oldLayers, generateLayer(type)])
-    console.log('type', type)
+    setActiveLayerIndex(newLayerIndex)
   }
 
   const keyTranslateFactor = 0.005

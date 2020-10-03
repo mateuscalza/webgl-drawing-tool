@@ -4,7 +4,10 @@ import { ReactSortable } from 'react-sortablejs'
 
 const Wrapper = styled.section`
   width: 100%;
+  height: 100%;
   margin-bottom: 10px;
+  overflow: auto;
+  padding: 5px;
 
   .layer {
     display: block;

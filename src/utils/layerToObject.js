@@ -1,10 +1,10 @@
 import * as THREE from 'three'
 
-export default function layerToObject(layer) {
+export default function layerToObject(layer, index, isPerspectiveMode) {
   const material = new THREE.MeshBasicMaterial({
     color: layer.color,
     transparent: true,
-    opacity: 0.9,
+    opacity: isPerspectiveMode ? 0.7 : 0.9,
   })
 
   let geometry
@@ -34,7 +34,7 @@ export default function layerToObject(layer) {
   const mesh = new THREE.Mesh(geometry, material)
   mesh.position.x = layer.x
   mesh.position.y = layer.y
-  mesh.position.z = 0
+  mesh.position.z = isPerspectiveMode ? index * 0.01 : 0
   mesh.rotation.z = layer.rotation
 
   // if (layer.angle) {

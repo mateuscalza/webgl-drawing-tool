@@ -19,32 +19,30 @@ const Wrapper = styled.main`
   }
 `
 
-export default function Board({ layers, position, onPositionChange }) {
+export default function Board({ layers, position, isPerspectiveMode, onPositionChange }) {
   const boardRef = useRef()
   const [wrapperRef, { width, height }] = useMeasure()
   const camera = useMemo(() => {
     if (!width || !height) {
       return null
     }
-    return new THREE.PerspectiveCamera(70, width / height, 0.01, 100)
+    return new THREE.PerspectiveCamera(90, width / height, 0.01, 100)
   }, [width, height])
   const scene = useMemo(() => {
     const currentScene = new THREE.Scene()
 
     if (layers.length) {
-      const objects = layers.map(layerToObject)
+      const objects = layers.map((layer, index) => layerToObject(layer, index, isPerspectiveMode))
       currentScene.add(...objects)
     }
 
     return currentScene
-  }, [layers])
+  }, [layers, isPerspectiveMode])
   const renderer = useMemo(() => new THREE.WebGLRenderer({ antialias: true }), [])
   const zoom = useMemo(() => {
     const d3Zoom = d3.zoom().scaleExtent([0, 3])
     const d3View = d3.select(renderer.domElement)
     d3View.call(d3Zoom)
-    window.d3View = d3View
-    window.d3Zoom = d3Zoom
     return d3Zoom
   }, [renderer])
 
@@ -73,8 +71,10 @@ export default function Board({ layers, position, onPositionChange }) {
       return
     }
     camera.position.set(position.x, position.y, position.z)
+    camera.rotation.set(0, isPerspectiveMode ? 0.7 : 0, 0)
+
     renderer.render(scene, camera)
-  }, [renderer, camera, scene, position])
+  }, [renderer, camera, scene, position, isPerspectiveMode])
 
   // Move camera on zoom
   useEffect(() => {

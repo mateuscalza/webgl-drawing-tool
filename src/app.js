@@ -23,6 +23,7 @@ function App() {
   })
   const [layers, setLayers] = useState([])
   const [activeLayerIndex, setActiveLayerIndex] = useState(null)
+  const [isPerspectiveMode, setIsPerspectiveMode] = useState(false)
 
   const handleTranslate = (x = 0, y = 0) =>
     setLayers(oldLayers => {
@@ -139,10 +140,21 @@ function App() {
     {},
     [activeLayerIndex],
   )
+  useKey(
+    'p',
+    prevented(() => setIsPerspectiveMode(old => !old)),
+    {},
+    [activeLayerIndex],
+  )
 
   return (
     <Wrapper>
-      <Board layers={layers} position={boardPosition} onPositionChange={setBoardPosition} />
+      <Board
+        layers={layers}
+        position={boardPosition}
+        onPositionChange={setBoardPosition}
+        isPerspectiveMode={isPerspectiveMode}
+      />
       <Panel
         layers={layers}
         onChangeLayers={setLayers}

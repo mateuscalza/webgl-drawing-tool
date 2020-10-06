@@ -104,7 +104,7 @@ export default function Transform({
               <span>Radius</span>{' '}
               <input
                 type='number'
-                step={0.1}
+                step={0.01}
                 min={0}
                 max={5}
                 value={layers[activeLayerIndex].radius || 0}
@@ -117,7 +117,7 @@ export default function Transform({
                 <span>Width</span>{' '}
                 <input
                   type='number'
-                  step={0.1}
+                  step={0.01}
                   min={0}
                   max={5}
                   value={layers[activeLayerIndex].width || 0}
@@ -129,7 +129,7 @@ export default function Transform({
                 <span>Height</span>{' '}
                 <input
                   type='number'
-                  step={0.1}
+                  step={0.01}
                   min={0}
                   max={5}
                   value={layers[activeLayerIndex].height || 0}

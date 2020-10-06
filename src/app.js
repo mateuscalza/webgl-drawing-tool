@@ -16,8 +16,13 @@ const Wrapper = styled.div`
 `
 
 function App() {
-  const [activeLayerIndex, setActiveLayerIndex] = useState(null)
+  const [boardPosition, setBoardPosition] = useState({
+    x: 0,
+    y: 0,
+    z: 1,
+  })
   const [layers, setLayers] = useState([])
+  const [activeLayerIndex, setActiveLayerIndex] = useState(null)
 
   const handleTranslate = (x = 0, y = 0) =>
     setLayers(oldLayers => {
@@ -76,7 +81,13 @@ function App() {
 
   const handleAdd = type => {
     const newLayerIndex = layers.length
-    setLayers(oldLayers => [...oldLayers, generateLayer(type)])
+    setLayers(oldLayers => [
+      ...oldLayers,
+      generateLayer(type, {
+        x: boardPosition.x,
+        y: boardPosition.y,
+      }),
+    ])
     setActiveLayerIndex(newLayerIndex)
   }
 
@@ -121,7 +132,7 @@ function App() {
 
   return (
     <Wrapper>
-      <Board layers={layers} />
+      <Board layers={layers} position={boardPosition} onPositionChange={setBoardPosition} />
       <Panel
         layers={layers}
         onChangeLayers={setLayers}

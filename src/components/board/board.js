@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useDebugValue, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useMeasure } from 'react-use'
 import * as THREE from 'three'
+import * as d3 from 'd3'
 import layerToObject from '../../utils/layerToObject'
 
 const Wrapper = styled.main`
@@ -18,16 +19,14 @@ const Wrapper = styled.main`
   }
 `
 
-export default function Board({ layers }) {
+export default function Board({ layers, position, onPositionChange }) {
   const boardRef = useRef()
   const [wrapperRef, { width, height }] = useMeasure()
   const camera = useMemo(() => {
     if (!width || !height) {
       return null
     }
-    const currentCamera = new THREE.PerspectiveCamera(70, width / height, 0.01, 100)
-    currentCamera.position.z = 1
-    return currentCamera
+    return new THREE.PerspectiveCamera(70, width / height, 0.01, 100)
   }, [width, height])
   const scene = useMemo(() => {
     const currentScene = new THREE.Scene()
@@ -40,6 +39,14 @@ export default function Board({ layers }) {
     return currentScene
   }, [layers])
   const renderer = useMemo(() => new THREE.WebGLRenderer({ antialias: true }), [])
+  const zoom = useMemo(() => {
+    const d3Zoom = d3.zoom().scaleExtent([0, 3])
+    const d3View = d3.select(renderer.domElement)
+    d3View.call(d3Zoom)
+    window.d3View = d3View
+    window.d3Zoom = d3Zoom
+    return d3Zoom
+  }, [renderer])
 
   // Responsive renderer
   useEffect(() => {
@@ -65,8 +72,29 @@ export default function Board({ layers }) {
     if (!camera || !scene || !renderer) {
       return
     }
+    camera.position.set(position.x, position.y, position.z)
     renderer.render(scene, camera)
-  }, [renderer, camera, scene])
+  }, [renderer, camera, scene, position])
+
+  // Move camera on zoom
+  useEffect(() => {
+    zoom.on('zoom', event => {
+      const newZ = event.transform.k
+      if (newZ !== camera.position.z) {
+        onPositionChange(({ x, y }) => ({ x, y, z: newZ }))
+      } else {
+        const { movementX, movementY } = event.sourceEvent
+        console.log({ movementX, movementY })
+        const vFOV = (camera.fov * Math.PI) / 180
+        const scaleHeight = 2 * Math.tan(vFOV / 2) * camera.position.z
+        const currentScale = height / scaleHeight
+        const x = camera.position.x - movementX / currentScale
+        const y = camera.position.y + movementY / currentScale
+        onPositionChange(({ z }) => ({ x, y, z }))
+      }
+    })
+    return () => zoom.on('zoom', null)
+  }, [zoom, camera, height, width])
 
   return (
     <Wrapper ref={wrapperRef}>

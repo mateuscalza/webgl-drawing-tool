@@ -1,6 +1,6 @@
 import randomColor from 'randomcolor'
 
-export default function generateLayer(type) {
+export default function generateLayer(type, { x, y }) {
   const color = randomColor({
     luminosity: 'bright',
   })
@@ -12,8 +12,8 @@ export default function generateLayer(type) {
         width: 0.3,
         height: 0.3,
         color,
-        x: 0,
-        y: 0,
+        x,
+        y,
         rotation: 0,
       }
     case 'circle':
@@ -21,8 +21,8 @@ export default function generateLayer(type) {
         type: 'circle',
         radius: 0.3,
         color,
-        x: 0,
-        y: 0,
+        x,
+        y,
         rotation: 0,
       }
     case 'triangle':
@@ -31,8 +31,8 @@ export default function generateLayer(type) {
         width: 0.3,
         height: 0.3,
         color,
-        x: 0,
-        y: 0,
+        x,
+        y,
         rotation: 0,
       }
     default:

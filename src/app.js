@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useKey } from 'react-use'
 import styled from 'styled-components'
 import Board from './components/board/board'
@@ -90,6 +90,16 @@ function App() {
     ])
     setActiveLayerIndex(newLayerIndex)
   }
+
+  // Start with forms on development
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      Array.from(Array(15)).forEach(() => {
+        const random = Math.random()
+        handleAdd(random <= 0.3 ? 'circle' : random > 0.7 ? 'triangle' : 'rect')
+      })
+    }
+  }, [])
 
   const keyTranslateFactor = 0.005
   const keyRotateFactor = 0.005

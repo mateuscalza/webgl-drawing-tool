@@ -146,6 +146,19 @@ function App() {
     {},
     [activeLayerIndex],
   )
+  useKey(
+    'r',
+    prevented(() => {
+      setBoardPosition({
+        x: 0,
+        y: 0,
+        z: 1,
+      })
+      setIsPerspectiveMode(false)
+    }),
+    {},
+    [activeLayerIndex],
+  )
 
   return (
     <Wrapper>

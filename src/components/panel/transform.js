@@ -101,10 +101,10 @@ export default function Transform({
             <label className='control'>
               <span>Radius</span>{' '}
               <input
-                type='number'
-                step={0.01}
-                min={0}
-                max={5}
+                type='range'
+                step={0.005}
+                min={0.01}
+                max={3}
                 value={layers[activeLayerIndex].radius || 0}
                 onChange={event => onUpdate({ radius: event.target.value })}
               />
@@ -114,10 +114,10 @@ export default function Transform({
               <label className='control'>
                 <span>Width</span>{' '}
                 <input
-                  type='number'
-                  step={0.01}
-                  min={0}
-                  max={5}
+                  type='range'
+                  step={0.005}
+                  min={0.01}
+                  max={3}
                   value={layers[activeLayerIndex].width || 0}
                   onChange={event => onUpdate({ width: event.target.value })}
                 />
@@ -126,10 +126,10 @@ export default function Transform({
               <label className='control'>
                 <span>Height</span>{' '}
                 <input
-                  type='number'
-                  step={0.01}
-                  min={0}
-                  max={5}
+                  type='range'
+                  step={0.005}
+                  min={0.01}
+                  max={3}
                   value={layers[activeLayerIndex].height || 0}
                   onChange={event => onUpdate({ height: event.target.value })}
                 />

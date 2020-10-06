@@ -1,8 +1,8 @@
-import React, { useDebugValue, useEffect, useMemo, useRef, useState } from 'react'
-import styled from 'styled-components'
-import { useMeasure } from 'react-use'
-import * as THREE from 'three'
 import * as d3 from 'd3'
+import React, { useEffect, useMemo, useRef } from 'react'
+import { useMeasure } from 'react-use'
+import styled from 'styled-components'
+import * as THREE from 'three'
 import layerToObject from '../../utils/layerToObject'
 
 const Wrapper = styled.main`
@@ -84,7 +84,6 @@ export default function Board({ layers, position, onPositionChange }) {
         onPositionChange(({ x, y }) => ({ x, y, z: newZ }))
       } else {
         const { movementX, movementY } = event.sourceEvent
-        console.log({ movementX, movementY })
         const vFOV = (camera.fov * Math.PI) / 180
         const scaleHeight = 2 * Math.tan(vFOV / 2) * camera.position.z
         const currentScale = height / scaleHeight
@@ -94,7 +93,7 @@ export default function Board({ layers, position, onPositionChange }) {
       }
     })
     return () => zoom.on('zoom', null)
-  }, [zoom, camera, height, width])
+  }, [zoom, camera, height, width, onPositionChange])
 
   return (
     <Wrapper ref={wrapperRef}>

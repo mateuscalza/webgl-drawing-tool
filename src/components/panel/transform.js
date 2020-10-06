@@ -2,12 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import arrowDown from '../../icons/arrowDown.svg'
 import arrowLeft from '../../icons/arrowLeft.svg'
-import arrowUp from '../../icons/arrowUp.svg'
 import arrowRight from '../../icons/arrowRight.svg'
+import arrowUp from '../../icons/arrowUp.svg'
 import rotateLeft from '../../icons/rotateLeft.svg'
 import rotateRight from '../../icons/rotateRight.svg'
-import zoomIn from '../../icons/zoomIn.svg'
-import zoomOut from '../../icons/zoomOut.svg'
 
 const Wrapper = styled.div`
   width: 100%;

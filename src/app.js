@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react'
 import { useKey } from 'react-use'
-import Panel from './components/panel/panel'
+import styled from 'styled-components'
 import Board from './components/board/board'
-import prevented from './utils/prevented'
+import Panel from './components/panel/panel'
 import generateLayer from './utils/generateLayer'
+import prevented from './utils/prevented'
 
 const Wrapper = styled.div`
   display: flex;

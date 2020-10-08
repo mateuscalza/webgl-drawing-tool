@@ -11,3 +11,10 @@ npm install
 # Run
 npm start
 ```
+
+## Contributors
+
+- Aline Gemelli
+- Alex Bevilaqua
+- Bruno Cesca
+- Mateus Calza

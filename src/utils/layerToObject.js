@@ -25,7 +25,7 @@ export default function layerToObject(layer, index, isPerspectiveMode) {
       geometry.faces.push(new THREE.Face3(0, 1, 2, normal))
       break
     case 'circle':
-      geometry = new THREE.CircleGeometry(layer.radius / 2, 64)
+      geometry = new THREE.CircleGeometry(layer.diameter / 2, 64)
       break
     default:
       throw new Error('Unknown layer type')
@@ -36,10 +36,5 @@ export default function layerToObject(layer, index, isPerspectiveMode) {
   mesh.position.y = layer.y
   mesh.position.z = isPerspectiveMode ? index * 0.01 : 0
   mesh.rotation.z = layer.rotation
-
-  // if (layer.angle) {
-  //   mesh.setRotationFromEuler(layer.angle)
-  // }
-
   return mesh
 }

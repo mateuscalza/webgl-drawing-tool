@@ -19,7 +19,7 @@ export default function generateLayer(type, { x, y }) {
     case 'circle':
       return {
         type: 'circle',
-        radius: 0.3,
+        diameter: 0.3,
         color,
         x,
         y,

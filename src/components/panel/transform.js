@@ -99,14 +99,14 @@ export default function Transform({
 
           {layers[activeLayerIndex].type === 'circle' ? (
             <label className='control'>
-              <span>Radius</span>{' '}
+              <span>Diameter</span>{' '}
               <input
                 type='range'
                 step={0.005}
                 min={0.01}
                 max={3}
-                value={layers[activeLayerIndex].radius || 0}
-                onChange={event => onUpdate({ radius: event.target.value })}
+                value={layers[activeLayerIndex].diameter || 0}
+                onChange={event => onUpdate({ diameter: event.target.value })}
               />
             </label>
           ) : (

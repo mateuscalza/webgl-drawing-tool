@@ -1,4 +1,4 @@
-# WebGL Getting Started
+# WebGL Drawing Tool
 
 Drawing tool powered by ThreeJS (WebGL), D3 and React. Demo at [http://webgl-react.vercel.app/](http://webgl-react.vercel.app/).
 
